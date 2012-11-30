@@ -1,0 +1,88 @@
+<h1>Business-Projects Report</h1>
+<table class="aui" style="table-layout: fixed;">
+    <col width="90px" />
+    #foreach ($month in $usersTable.keySet())
+    <col width="270px" />
+    #end
+    <thead>
+        <tr>
+        <td>Проект</td>
+        #foreach ($month in $usersTable.keySet())
+            <th>$month</th>
+        #end
+        </tr>
+    </thead>
+    <tbody>
+    #foreach ($proj in $allProjects)
+        <tr>
+                    #set ($projData = $projectsSumAllMonthsTable.get($proj))
+                    <td>$proj<br/>$projData.get(0)<br/>$projData.get(1)</td>
+            #foreach ($month in $usersTable.keySet())  ## each month (columns)
+                #set ($monthData = $usersTable.get($month))
+                #set ($monthProjData = $monthData.get($proj)) ## only for this project (row)
+                <td>
+                <table class="aui" style="table-layout: fixed;">
+                <col width="110px" />
+                <col width="110px" />
+                <col width="50px" />
+                <tbody>
+                #foreach ($teamName in $monthProjData.keySet())
+                            <tr style="background-color: #EAF1FD;">
+                                <td>$teamName</td>
+                                <td>t</td>
+                                <td>%</td>
+                            </tr>
+                    #set ($teamUsersData = $monthProjData.get($teamName))
+                        #foreach ($userName in $teamUsersData.keySet())
+                            #set ($userData = $teamUsersData.get($userName))
+                            <tr>
+                                <td>
+                                    $displayNames.get($userName)
+                                </td>
+                                <td>
+                                    $userData.get(0)
+                                </td>
+                                <td>
+                                    $userData.get(1)
+                                </td>
+                            </tr>
+                        #end
+                        <tr>
+                            <td>GroupSum</td>
+                            #set ($data = $groupsTable.get($month).get($proj).get($teamName))
+                            <td>$data.get(0)</td>
+                            <td>$data.get(1)</td>
+                        </td>
+                #end
+                        <tr style="background-color: gray;">
+                            <td>ProjSum</td>
+                            #set ($data = $projectsTable.get($month).get($proj))
+                            <td>$data.get(0)</td>
+                            <td>$data.get(1)</td>
+                        </td>
+                </tbody>
+                </table>
+                </td>
+            #end
+        </tr>
+    #end
+    <tr>
+        <td>Sum</td>
+        <!-- $monthSumTable -->
+        #foreach ($month in $monthSumTable.keySet())
+        <td>
+            <table class="aui">
+                <col width="110px" />
+                <col width="110px" />
+                <col width="50px" />
+                <tbody>
+                    <td>$month</td>
+                    <td>$monthSumTable.get($month)</td>
+                    <td></td>
+                </tbody>
+            </table>
+        </td>
+        #end
+    </tr>
+    </tbody>
+</table>

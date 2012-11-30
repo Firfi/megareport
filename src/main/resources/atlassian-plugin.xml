@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+  </plugin-info>
+
+  <report name="Business Projects Spent Report"
+          i18n-name-key="business-projects-spent-report.name"
+          key="business-projects-spent-report"
+          class="ru.megaplan.jira.plugins.megareport.businessprojectsspentreport.BusinessProjectsSpentReport">
+    <description key="business-projects-spent-report.description">The Business Projects Spent Report Plugin</description>
+
+    <resource name="view" type="velocity" location="/templates/reports/business-projects-spent-report/view.vm" />
+    <resource name="excel" type="velocity" location="/templates/reports/business-projects-spent-report/view.vm" />
+    <resource name="i18n" type="i18n" location="ru.megaplan.jira.plugins.megareport"/>
+    <label key="business-projects-spent-report.label"/>
+    <properties>
+        <property>
+            <key>startDate</key>
+            <name>report.timesheet.startdate</name>
+            <description>report.timesheet.startdate.description</description>
+            <type>date</type>
+        </property>
+        <property>
+            <key>endDate</key>
+            <name>report.timesheet.enddate</name>
+            <description>report.timesheet.enddate.description</description>
+            <type>date</type>
+        </property>
+    </properties>
+  </report>
+</atlassian-plugin>
